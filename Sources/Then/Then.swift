@@ -25,7 +25,7 @@ import CoreGraphics
 #if os(iOS) || os(tvOS)
   import UIKit.UIGeometry
 #endif
-
+// 协议
 public protocol Then {}
 
 extension Then where Self: Any {
@@ -36,6 +36,7 @@ extension Then where Self: Any {
   ///       $0.origin.x = 10
   ///       $0.size.width = 100
   ///     }
+    //参数是一个闭包，闭包参数类型是自己，闭包返回值是Void。函数返回值类型是自己
   public func with(_ block: (inout Self) throws -> Void) rethrows -> Self {
     var copy = self
     try block(&copy)
@@ -49,12 +50,14 @@ extension Then where Self: Any {
   ///       $0.set("devxoul@gmail.com", forKey: "email")
   ///       $0.synchronize()
   ///     }
+    // 没有返回值
   public func `do`(_ block: (Self) throws -> Void) rethrows {
     try block(self)
   }
 
 }
 
+//AnyObject：对象类型
 extension Then where Self: AnyObject {
 
   /// Makes it available to set properties with closures just after initializing.
